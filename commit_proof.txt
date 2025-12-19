@@ -1,0 +1,12 @@
+* e420bf7 Add Pydantic models for API request/response
+* 1640e99 Fix duplicate function definition and indentation
+* e6ef5a0 Fix syntax error in routes.py
+* cfd52dd Add missing app/main.py file
+* 83f1574 Fix Dockerfile PATH and add missing sections
+* fb05868 Complete PKI 2FA microservice implementation
+* 4e4a7f7 Complete PKI 2FA microservice implementation
+* 5f0d4a6 Create requirements.txt
+* 64aab26 add instructor_pubilc.pem
+* 07189b5 add instructor_pubilc.pem
+* 9a950b6 Add student RSA 4096-bit key pair
+* 87f54cf Initial commit

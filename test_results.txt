@@ -1,0 +1,27 @@
+=== PKI-2FA Microservice Test Results ===
+
+1. Health Endpoint Test:
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0   0     0   0     0     0     0  --:--:-- --:--:-- --:--:--     0100    57 100    57   0     0  5480     0  --:--:-- --:--:-- --:--:--  5700{"status":"ok","timestamp":"2025-12-19T11:04:26.284872Z"}
+
+
+2. Decrypt Seed Test:
+{"status":"ok"}
+
+3. Generate 2FA Code Test:
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0   0     0   0     0     0     0  --:--:-- --:--:-- --:--:--     0100    31 100    31   0     0  4164     0  --:--:-- --:--:-- --:--:--  4428{"code":"316812","valid_for":2}
+
+
+4. Docker Container Status:
+CONTAINER ID   IMAGE                      COMMAND                  CREATED          STATUS          PORTS                                         NAMES
+076e21b48359   pki-2fa-microservice-app   "/bin/sh -c 'cron &&…"   19 minutes ago   Up 19 minutes   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   pki-2fa-microservice
+
+5. Recent Generated Codes from Logs:
+2025-12-19 10:56:50,238 - app.logging_config - INFO - Generated 2FA code: 181325
+2025-12-19 10:56:50,352 - app.logging_config - INFO - Generated 2FA code: 181325
+2025-12-19 10:57:59,314 - app.logging_config - INFO - Generated 2FA code: 273549
+2025-12-19 11:00:28,259 - app.logging_config - INFO - Generated 2FA code: 816783
+2025-12-19 11:04:28,034 - app.logging_config - INFO - Generated 2FA code: 316812
