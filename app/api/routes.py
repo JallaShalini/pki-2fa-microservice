@@ -84,4 +84,5 @@ async def generate_2fa():
 
 
 @router.post("/verify-2fa", response_model=VerifyTOTPResponse, responses={400: {"model": ErrorResponse}, 500: {"model": ErrorResponse}})
-async def verify_2fa(request
+async def verify_2fa(request: VerifyTOTPRequest):
+
