@@ -33,50 +33,48 @@ curl http://localhost:8080/generate-2fa
 | `/health` | GET | Health check |
 
 ## Project Structure
-
 pki-2fa-microservice/
-├── app/
+├── app/ 
+│ ├── init.py
+│ ├── main.py 
+│ ├── config.py 
+│ ├── logging_config.py
 │ ├── api/
 │ │ ├── init.py
-│ │ ├── models.py # Pydantic request/response models
-│ │ └── routes.py # API endpoint implementations
-│ ├── crypto/
+│ │ ├── models.py 
+│ │ └── routes.py 
+│ ├── crypto/  
 │ │ ├── init.py
-│ │ ├── keys.py # RSA key loading utilities
-│ │ └── rsa_ops.py # RSA encryption/decryption operations
-│ ├── storage/
+│ │ ├── keys.py 
+│ │ └── rsa_ops.py 
+│ ├── storage/ 
 │ │ ├── init.py
-│ │ └── seed_store.py # Persistent seed storage
-│ ├── totp/
-│ │ ├── init.py
-│ │ └── totp_service.py # TOTP generation and verification
+│ │ └── seed_store.py 
+│ └── totp/ 
 │ ├── init.py
-│ ├── config.py # Application configuration
-│ ├── logging_config.py # Logging setup
-│ └── main.py # FastAPI application
+│ └── totp_service.py 
 ├── cron/
-│ └── 2fa-cron # Cron job configuration
+│ └── 2fa-cron 
 ├── scripts/
-│ ├── generate_commit_proof.py
-│ ├── log_2fa_cron.py # Cron execution script
-│ └── request_seed.py # Seed request from instructor API
+│ ├── generate_commit_proof.py 
+│ ├── log_2fa_cron.py 
+│ └── request_seed.py 
 ├── tests/
 │ ├── init.py
-│ ├── test_api.py # API endpoint tests
-│ ├── test_cron.py # Cron job tests
-│ ├── test_crypto.py # Cryptography tests
-│ └── test_totp.py # TOTP generation tests
-├── .gitattributes
-├── .gitignore
-├── conftest.py # Pytest configuration
-├── Dockerfile # Multi-stage Docker build
-├── docker-compose.yml # Docker orchestration
-├── instructor_public.pem # Instructor's public key
-├── README.md
-├── requirements.txt # Python dependencies
-├── student_private.pem # Student private key (for assignment)
-└── student_public.pem # Student public key
-
+│ ├── test_api.py 
+│ ├── test_cron.py 
+│ ├── test_crypto.py 
+│ └── test_totp.py 
+├── .gitattributes 
+├── .gitignore 
+├── conftest.py 
+├── Dockerfile
+├── docker-compose.yml 
+├── instructor_public.pem 
+├── README.md 
+├── requirements.txt 
+├── student_private.pem 
+└── student_public.pem 
 
 ## Testing
 Run all tests
