@@ -85,4 +85,49 @@ async def generate_2fa():
 
 @router.post("/verify-2fa", response_model=VerifyTOTPResponse, responses={400: {"model": ErrorResponse}, 500: {"model": ErrorResponse}})
 async def verify_2fa(request: VerifyTOTPRequest):
+    """
+    Verify TOTP code
+    """
+    try:
+        # Validate code is provided
+        if not request.code:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Missing code"
+            )
+        
+        # Check if seed exists
+        if not seed_exists(SEED_FILE):
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Seed not decrypted yet"
+            )
+        
+        # Load seed
+        hex_seed = load_seed(SEED_FILE)
+        
+        # Verify code with ±1 period tolerance
+        is_valid = verify_totp_code(hex_seed, request.code, valid_window=1)
+        
+        logger.info(f"Verified 2FA code: {request.code} - Valid: {is_valid}")
+        return VerifyTOTPResponse(valid=is_valid)
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to verify 2FA code: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Seed not decrypted yet"
+        )
 
+
+@router.get("/health", response_model=HealthResponse)
+async def health():
+    """
+    Health check endpoint
+    """
+    return HealthResponse(
+        status="ok",
+        timestamp=datetime.utcnow().isoformat() + "Z"
+    )
