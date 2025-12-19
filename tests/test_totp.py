@@ -1,30 +1,35 @@
 import pytest
-from app.totp.totp_service import generate_totp, verify_totp
-import time
+from app.totp.totp_service import generate_totp_code, verify_totp_code, hex_to_base32, get_remaining_validity
 
-def test_generate_totp():
+def test_generate_totp_code():
     """Test TOTP code generation"""
-    seed = "JBSWY3DPEHPK3PXP"  # Base32 encoded seed
-    code = generate_totp(seed)
+    hex_seed = "48656c6c6f20576f726c64"  # "Hello World" in hex
+    code = generate_totp_code(hex_seed)
+    assert code is not None
     assert len(code) == 6
     assert code.isdigit()
 
-def test_verify_totp_valid():
+def test_verify_totp_code():
     """Test TOTP verification with valid code"""
-    seed = "JBSWY3DPEHPK3PXP"
-    code = generate_totp(seed)
-    # Should verify within ±1 time window
-    assert verify_totp(seed, code) is True
+    hex_seed = "48656c6c6f20576f726c64"
+    code = generate_totp_code(hex_seed)
+    assert verify_totp_code(hex_seed, code) is True
 
-def test_verify_totp_invalid():
+def test_verify_invalid_code():
     """Test TOTP verification with invalid code"""
-    seed = "JBSWY3DPEHPK3PXP"
+    hex_seed = "48656c6c6f20576f726c64"
     invalid_code = "000000"
-    assert verify_totp(seed, invalid_code) is False
+    assert verify_totp_code(hex_seed, invalid_code) is False
 
-def test_totp_time_window():
-    """Test TOTP accepts codes from ±1 window (30 seconds)"""
-    seed = "JBSWY3DPEHPK3PXP"
-    code = generate_totp(seed)
-    # Test that code is valid for 30-90 seconds
-    assert verify_totp(seed, code) is True
+def test_hex_to_base32():
+    """Test hex to base32 conversion"""
+    hex_seed = "48656c6c6f20576f726c64"
+    base32 = hex_to_base32(hex_seed)
+    assert base32 is not None
+    assert len(base32) > 0
+
+def test_get_remaining_validity():
+    """Test getting remaining validity"""
+    remaining = get_remaining_validity(30)
+    assert remaining >= 0
+    assert remaining <= 30
